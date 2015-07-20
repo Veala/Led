@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTcpSocket>
 
 namespace Ui {
 class MainWindow;
@@ -15,12 +16,18 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    QTcpSocket *clientTcpSocket;
+
     QStringList Commands;
     QStringList Arguments[6];
 
 public slots:
     void changeArg(int);
-    void send();
+    void connectClick();
+    void readyRead   ();
+    void error       (QAbstractSocket::SocketError);
+    void sendToServer();
+    void connected   ();
 
 private:
     Ui::MainWindow *ui;
